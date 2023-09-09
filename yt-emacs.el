@@ -48,14 +48,9 @@
          :object-type 'alist)))
   )
 
-(defvar teste (yt-emacs-search-and-parse-results "emacs" 10))
 
 (defun yt-emacs-get-titles (lista)
   (mapcar (lambda (x) (cdr (assoc 'title x))) lista))
-
-(defvar tits (yt-emacs-get-titles teste))
-
-(yt-emacs-get-url-by-title teste (nth 1 tits))
 
 
 (defun yt-emacs-get-url-by-title (plist title)
