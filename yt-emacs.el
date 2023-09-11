@@ -35,7 +35,6 @@
 
 (defun yt-emacs-get-python-command (query nvideos)
   "Describe what this function does."
-  ;; Your code here
 (format "python3 %s %s %d" yt-emacs-python-searcher-location query nvideos))
 
 
@@ -48,21 +47,23 @@
          :object-type 'alist)))
   )
 
-
-(defun yt-emacs-get-titles (lista)
-  (mapcar (lambda (x) (cdr (assoc 'title x))) lista))
+(defun yt-emacs-get-links (lista) (mapcar (lambda (x) (cdr (assoc 'link x))) lista))
 
 
 (defun yt-emacs-get-url-by-title (plist title)
   "Retrieve the URL corresponding to TITLE from PLIST."
-  (let ((titles (get-titles plist))
-        (urls (get-links plist)))
+  (let ((titles (yt-emacs-get-titles plist))
+        (urls (yt-emacs-get-links plist)))
     (if (and titles urls)
         (let ((index (cl-position title titles :test 'equal)))
           (if index
               (nth index urls)
             (error "Title not found")))
       (error "Plist doesn't contain titles and urls"))))
+
+
+(defun yt-emacs-get-titles (lista)
+  (mapcar (lambda (x) (cdr (assoc 'title x))) lista))
 
 
 ;;;###autoload
@@ -80,5 +81,4 @@
     ))
 
 (provide 'yt-emacs)
-
 ;;; yt-emacs.el ends here
